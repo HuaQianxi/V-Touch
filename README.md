@@ -77,7 +77,7 @@ npm run build
 
 For more information, consult [`./documentation.md`](./documentation.md).
 
-I'd like to speak directly with users to learn about what they want and get feedback on the template. If you're interested in me helping you build your project page with you (for free), you can [email me](mailto:roman.i0djm@aleeas.com) or [schedule a virtual intro meeting](https://cal.com/romanhauksson/meeting).
+I'd like to speak directly with users to learn about what they want and get feedback on the template. If you're interested in getting help with setting up with the project, fixing bugs AI can't solve, or even having me develop the page for you, you can [email me](mailto:roman.i0djm@aleeas.com) or [schedule a virtual meeting](https://cal.com/romanhauksson/projectpage).
 
 ## Alternative template
 
