@@ -10,6 +10,7 @@ import type { Author, Note, Link } from "../types/types";
 import Table from "../components/Table.astro";
 import logo from "../assets/logo.png";
 import logoRound from "../assets/logo_round.png";
+import frontLong from "../assets/front_long.mp4";
 
 import "../styles/global.css";
 import "katex/dist/katex-swap.css";
@@ -45,7 +46,7 @@ const prefix = baseUrl.endsWith("/") ? baseUrl : baseUrl + "/";
 ---
 
 <!doctype html>
-<html class="bg-white dark:bg-zinc-900" lang="en" data-theme={theme}>
+<html class="bg-white dark:bg-zinc-900" lang="en" data-theme={theme} style="margin: 0; padding: 0;">
   <head>
     <meta charset="UTF-8" />
     {description && <meta name="description" content={description} />}
@@ -64,25 +65,53 @@ const prefix = baseUrl.endsWith("/") ? baseUrl : baseUrl + "/";
       preload={[{ subset: "latin", style: "normal" }]}
     />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <title>{title}</title>
   </head>
   <body
-    class="prose prose-lg prose-zinc dark:prose-invert prose-a:text-blue-500 prose-a:dark:text-blue-300 prose-a:no-underline prose-a:hover:underline prose-a:font-normal prose-code:bg-zinc-200 prose-code:dark:bg-zinc-800 prose-code:text-zinc-800 prose-code:dark:text-zinc-200 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:font-medium prose-code:before:content-none prose-code:after:content-none max-w-none pt-16 pb-6 font-(family-name:--font-noto-sans)"
+    class="prose prose-lg prose-zinc dark:prose-invert prose-a:text-blue-500 prose-a:dark:text-blue-300 prose-a:no-underline prose-a:hover:underline prose-a:font-normal prose-code:bg-zinc-200 prose-code:dark:bg-zinc-800 prose-code:text-zinc-800 prose-code:dark:text-zinc-200 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:font-medium prose-code:before:content-none prose-code:after:content-none max-w-none font-(family-name:--font-noto-sans)"
+    style="margin: 0 !important; padding: 0 !important;"
   >
-    <header class="mx-auto mb-12 max-w-[50rem] px-6 text-center">
-      <div class="mb-6 w-full">
-        <Picture src={logo} alt="Logo" class="w-full h-auto" />
-      </div>
-      <h1 class="text-5xl font-medium">{title}</h1>
-      <div class="flex flex-col items-center gap-6">
-        <Authors authors={authors} />
-        {conference && <div>{conference}</div>}
-        {notes && <Notes notes={notes} />}
+    <!-- Hero Section with Video Background -->
+    <section style="margin: 0; padding: 0; position: relative; width: 100%;">
+      <video
+        style="width: 100%; height: auto; display: block; margin: 0;"
+        src={frontLong}
+        autoplay
+        loop
+        muted
+        playsinline
+      ></video>
+
+      <!-- Dark Overlay -->
+      <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4);"></div>
+
+      <!-- Header Content overlaid on video -->
+      <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: white; padding: 2rem;">
+        <h1 class="mb-6 text-6xl font-bold tracking-tight text-white drop-shadow-lg" style="font-family: 'Plus Jakarta Sans', sans-serif;">
+          {title}
+        </h1>
+        <div class="mb-8 flex flex-col items-center gap-4" style="font-family: 'Plus Jakarta Sans', sans-serif;">
+          <Authors authors={authors} />
+          {conference && <div class="text-xl">{conference}</div>}
+          {notes && <Notes notes={notes} />}
+        </div>
         {links && <Links links={links} />}
       </div>
-    </header>
-    <main>
-      <Content components={{ table: Table }} />
+    </section>
+
+    <!-- Main Content with Logo Background -->
+    <main class="relative">
+      <!-- Logo Background -->
+      <div class="absolute inset-0 z-0 opacity-30 pointer-events-none">
+        <Picture src={logo} alt="" class="w-full h-full object-contain" />
+      </div>
+      <div class="relative z-10">
+        <Content components={{ table: Table }} />
+      </div>
     </main>
     <footer class="mx-auto max-w-[50rem] px-6 text-center">
       <p class="prose-sm text-center">

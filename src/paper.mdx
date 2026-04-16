@@ -34,9 +34,7 @@ favicon: favicon.svg
 
 import Figure from "./components/Figure.astro";
 import Picture from "./components/Picture.astro";
-import Video from "./components/Video.astro";
 
-import frontLong from "./assets/front_long.mp4";
 import datasetView from "./assets/dataset view.png";
 import crossEmbodiment from "./assets/Cross-embodiment_collection_schematic.PNG";
 import taskClass from "./assets/task_classification.PNG";
@@ -56,12 +54,6 @@ import actionCompare from "./assets/action_comparison.png";
 ## Abstract
 
 We introduce **VTOUCH**, a large-scale multimodal dataset for bimanual robot manipulation featuring synchronized proprioception, multi-view RGB-D observations, and high-resolution fingertip tactile signals from GelSight sensors. The dataset covers 380+ bimanual tasks with 100+ atomic action compositions, collected across multiple robot embodiments.
-
-<div style="width: 100%; margin: 2rem 0;">
-  <Video src={frontLong} />
-</div>
-
-**Demo Video.** Real robot bimanual manipulation with visuo-tactile sensing.
 
 <Figure>
   <Picture slot="figure" src={datasetView} alt="Dataset Overview" />
