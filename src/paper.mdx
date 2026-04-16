@@ -1,208 +1,428 @@
 ---
-title: Academic Project Page Template
+title: "VTOUCH: A Multimodal Dataset with Vision-Based Tactile Enhancement for Bimanual Manipulation"
 authors:
-  - name: Roman Hauksson
-    url: https://roman.technology
-    institution: University of Texas at Dallas
-    notes: ["*", †]
-  - name: Author Two
-    institution: Institution Two
-    notes: ["*", †]
-  - name: Author Three
-    institution: Institution Three
+  - name: David S. Hippocampus
+    institution: Cranberry-Lemon University
     notes: ["*"]
-  - name: Author Four
-    institution: Institution Four
-conference: Conference Name
+  - name: Elias D. Striatum
+    institution: Mount-Sheikh University
+    notes: ["†"]
+conference: "arXiv preprint"
 notes:
   - symbol: "*"
-    text: author note one
-  - symbol: †
-    text: author note two
+    text: "Cranberry-Lemon University, Department of Computer Science"
+  - symbol: "†"
+    text: "Mount-Sheikh University, Department of Electrical Engineering"
 links:
   - name: Paper
-    url: https://github.com/RomanHauksson/academic-project-astro-template
+    url: https://arxiv.org/abs/XXXX.XXXX
     icon: ri:file-pdf-2-line
   - name: Code
-    url: https://github.com/RomanHauksson/academic-project-astro-template
+    url: https://github.com/your-repo
     icon: ri:github-line
-  - name: arXiv
-    url: https://github.com/RomanHauksson/academic-project-astro-template
-    icon: academicons:arxiv
-  - name: Slides
-    url: https://github.com/RomanHauksson/academic-project-astro-template
-    icon: ri:slideshow-2-line
-
-# The color theme of the page. Defaults to "device" (the preference set in the user's brower or operating system). Setting this to "light" or "dark" will override the user's preference. This is useful if your figures only look good in one theme.
 theme: device
-
-# This is the icon that appears in the user's browser tab. To customize, change the favicon.svg file in /public/, or add your own file to /public/ and change the filename here.
-favicon: favicon.svg
-
-# These keys are optional. If a link to your project page is in a Google search result, text message, or social media post, it will often appear as a "link preview card" based on its title, description, favicon, and thumbnail. After you publish your page, you can double check that these previews look right using [this tool](https://linkpreview.xyz/)
-description: Simple project page template for your research paper, built with Astro and Tailwind
+description: "VTOUCH: A Multimodal Dataset with Vision-Based Tactile Enhancement for Bimanual Manipulation"
 thumbnail: screenshot-light.png
+favicon: favicon.svg
 ---
 
-import Video from "./components/Video.astro";
-import HighlightedSection from "./components/HighlightedSection.astro";
-import SmallCaps from "./components/SmallCaps.astro";
 import Figure from "./components/Figure.astro";
-import Picture from "./components/Picture.astro";
-import ModelViewer from "./components/ModelViewer.astro"
-import TwoColumns from "./components/TwoColumns.astro";
-import YouTubeVideo from "./components/YouTubeVideo.astro";
-import Carousel from "./components/Carousel.astro";
-import CarouselSlide from "./components/CarouselSlide.astro";
-import Wide from "./components/Wide.astro";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/starwind/tabs";
-import { Comparison } from "./components/Comparison.tsx";
-
-import outside from "./assets/outside.mp4";
-import dogsDiffc from "./assets/dogs-diffc.png"
-import dogsTrue from "./assets/dogs-true.png"
-import dogsMsillm from "@/assets/dogs-msillm.jpg"
-
-<Video src={outside} />
-
-<HighlightedSection>
+import Table from "./components/Table.astro";
 
 ## Abstract
 
-This is a template you can use to create a professional project page for your research paper. [See the code for the template and instructions on how to use it yourself on GitHub](https://github.com/RomanHauksson/academic-project-astro-template). It's made with the [Astro web framework](https://astro.build/) and styled with [Tailwind](https://tailwindcss.com/). You write the content in [MDX](https://mdxjs.com/), which enables markdown formatting like **bold**, _italics_, and ~strikethrough~, as well as custom components like <SmallCaps>small caps.</SmallCaps>
+Embodied intelligence has advanced rapidly in recent years; however, bimanual manipulation—especially in contact-rich tasks—remains challenging. This is largely due to the lack of datasets with rich physical interaction signals, systematic task organization, and sufficient scale. To address these limitations, we introduce the VTOUCH dataset. It leverages visuotactile sensing to provide high-fidelity physical interaction signals, adopts a matrix-style task design to enable systematic learning, and employs automated data collection pipelines covering real-world, demand-driven scenarios to ensure scalability. To further validate the effectiveness of the dataset, we conduct extensive quantitative experiments on cross-modal retrieval as well as real-robot evaluation. Finally, we demonstrate real-world performance through generalizable inference across multiple robots, policies, and tasks.
 
-</HighlightedSection>
+## Introduction
 
-## Visuals
+Bimanual manipulation is a core capability for robots operating in human-centric environments such as household service, retail assistance, and industrial assembly. Compared to single-arm manipulation, bimanual tasks not only involve richer coordination patterns and stronger physical constraints, but also critically rely on multimodal perception—particularly the joint reasoning over visual and tactile signals to handle frequent and uncertain contact interactions. This places substantially higher demands on perception, control, and representation learning. While recent imitation learning and diffusion-based policies have demonstrated strong performance in vision-driven manipulation, their progress in contact-intensive bimanual settings remains fundamentally limited by the lack of large-scale datasets that are grounded in real-world physical interaction and jointly capture visual and tactile feedback.
 
-### Picture
+Existing datasets exhibit complementary yet critical limitations. Human bimanual interaction datasets offer scale and behavioral diversity, but lack access to robot-specific proprioception, contact forces, and embodiment constraints. Synthetic or simulation-based robotic datasets provide precise state and force annotations, yet often suffer from sim-to-real discrepancies that hinder real-world deployment. Real-robot manipulation datasets, while physically realistic, are typically limited in scale, sensing modalities, or task diversity particularly in the bimanual setting. Crucially, there is currently no large-scale, multimodal dataset for bimanual robot manipulation that jointly captures real-world robot proprioception, visual observations, and tactile sensing, while being collected from physically verified interactions.
 
-Use the `Picture` component to display images. If you have a figure in PDF format, you can pass in its path as the `src` prop and it will be converted into a web-friendly image automatically.
+To address this gap, we introduce a large-scale multimodal dataset constructed entirely from real bimanual robot demonstrations, collected across multiple robot embodiments and configurations, including the Qinglong dual-arm platforms, wheel-arm systems, and UMI-style mobile manipulators. The dataset synchronously records joint-level proprioception, multi-view RGB-D observations, and explicit fingertip tactile signals obtained from GelSight tactile sensors, enabling high-fidelity capture of contact-rich manipulation dynamics. By grounding all data in real hardware execution, the dataset avoids sim-to-real artifacts and provides a reliable foundation for learning and evaluation.
 
-<Picture src={dogsDiffc} alt="Photo of two running dogs, lossily compressed using the DiffC algorithm" />
+Beyond scale and sensing richness, our dataset is guided by a canvas-style design philosophy. Rather than organizing data around a fixed set of discrete task labels, we structure demonstrations along fundamental axes including bimanual coordination patterns, atomic manipulation actions, sensory modalities, and temporal organization. Over 300 bimanual tasks are represented as compositions of atomic actions under diverse coordination and contact conditions, enabling systematic recomposition and analysis without requiring ambiguous sub-trajectory segmentation.
 
-### Wide visual
+Finally, we position this dataset as a bridge between theoretical modeling, real-robot data acquisition, and reproducible policy learning. We benchmark representative learning-based methods, including Action Chunking Transformers and diffusion-based policies with visual–tactile fusion, demonstrating the necessity of multimodal perception and explicit bimanual coordination for contact-intensive manipulation. Together, this dataset and its benchmarks aim to accelerate research toward robust and generalizable bimanual manipulation in real-world environments.
 
-I constrained the maximum width of the text column to make sure it's readable even when the screen is wide. But images and other visuals should "break out" and take up more horizontal space: for this, try wrapping them in the `Wide` component.
+## Related Work
 
-<Wide>
-  <Picture src={dogsDiffc} alt="Photo of two running dogs, lossily compressed using the DiffC algorithm" />
-</Wide>
+We have surveyed existing datasets and methods across three domains to situate our contribution: datasets of human bimanual interaction, datasets of robotic manipulation, particularly those involving bimanual coordination, and methods for multimodal perception and physics-based reconstruction. An extended discussion and comparison are provided in Table 1.
 
-### Figure with caption
+### Human Bimanual Interaction Datasets
 
-Wrap a visual in a `Figure` component to add a caption.
+Vision-centric observation datasets. Large-scale first-person video datasets, such as Ego4D [@grauman2022ego4dworld3000hours] and Epic-Kitchens [@damen2020epickitchensdatasetcollectionchallenges], capture a wide range of human activity scenarios, including household, outdoor, workplace, leisure, and more, while also featuring bimanual interactions, providing extensive task coverage and contextual understanding. However, they only offer RGB video data, lacking precise 3D pose annotations and any physical contact information, which makes them primarily suitable for high-level task understanding rather than learning contact-intensive control policies.
 
-<Figure>
-  <Picture slot="figure" src={dogsDiffc} alt="Photo of two running dogs, lossily compressed using the DiffC algorithm" />
-  <Fragment slot="caption">A photo of two dogs running side-by-side in shallow water, lossily compressed using the [DiffC algorithm](https://jeremyiv.github.io/diffc-project-page/).</Fragment>
-</Figure>
+High-precision motion capture datasets. Optical motion capture systems address the accuracy issue. Datasets such as GRAB [@Taheri_2020] capture whole-body grasping motions, containing full 3D shape and pose sequences of 10 subjects. While ARCTIC [@fan2024hold] extends this to complex bimanual object manipulation with synchronized RGB-D data streams. These works provide high-fidelity kinematic trajectories for both hands and objects. However, a key limitation is that they only record geometric motions without capturing the contact forces that cause those motions. The absence of such physical interaction signals makes direct transfer to robotics—where force modulation is critical—challenging.
 
-### Comparison slider
+Human datasets with contact sensing. Another line of work attempts to infer contact. ContactDB [@brahmbhatt2019contactdbanalyzingpredictinggrasp] and ContactPose [@brahmbhatt2020contactposedatasetgraspsobject] employ thermal imaging to map hand-object contact areas. While introducing a physical dimension, thermal imaging only provides binary contact masks without information about force magnitude and direction, and is susceptible to environmental thermal noise. Recent diffusion-based methods [@Christen_2024] can generate diverse hand-object interactions but lack a physical foundation.
 
-Use the `Comparison` component to compare two visuals with an interactive slider.
+### Robotic Manipulation Datasets
 
-<Comparison client:idle >
-  <Picture slot="itemOne" src={dogsDiffc} alt="Photo of two running dogs, lossily compressed using the DiffC algorithm" />
-  <Picture slot="itemTwo" src={dogsTrue} alt="True photo of two dogs running side-by-side in shallow water" />
-</Comparison>
+Large-scale synthetic datasets. Physical simulation enables the generation of large-scale datasets with perfect ground truth. DexGraspNet [@wang2023dexgraspnetlargescaleroboticdexterous] and its subsequent work DexGraspNet 2.0 [@zhang2024dexgraspnet20learninggenerative] generate stable grasps via synthesis method which concludes a two-stage grasping and diffusion model approach. For bimanual coordination, BiDexHands [@chen2022humanlevelbimanualdexterousmanipulation] provides a high-performance simulation environment and policies. While their scale is virtually unlimited, these datasets are affected by the sim-to-real gap—discrepancies in dynamics, sensing, and rendering limit the transfer of policies to physical systems.
 
-### Tab panels
+Collecting datasets with physical robots. Data collected directly on target hardware, whether through teleoperation [@ze2025twist2] or autonomous exploration [@contributors2024agibotworldrepo], provides real kinematics. However, scaling such collection is prohibitively expensive and slow, especially for high degree-of-freedom dual-arm systems. Furthermore, most real-world robot datasets primarily rely on visual observations and rarely integrate high-bandwidth tactile sensing. This lack of rich, synchronized proprioceptive-tactile-visual data hinders the advancement of learning granular, contact-aware manipulation skills. RoboNet [@DBLP:journals/corr/abs-1910-11215] presents an open large-scale multi-robot manipulation dataset. The dataset is gathered through autonomous random exploration and supports cross-robot and cross-scene pre-training and fine-tuning experiments, yet it still lacks tactile fusion, bimanual coordination, and complex task sequences. To overcome the cost and efficiency bottlenecks of real-robot collection, recent robot-free paradigms have emerged. For instance, FreeTacMan [@wu2025freetacmanrobotfreevisuotactiledata] designs a wearable visuo-tactile gripper operated directly by humans, combined with high-precision motion capture to record end-effector poses, thereby efficiently collecting large-scale, multimodal manipulation data. Such methods significantly improve collection efficiency and user experience, but the learned policies still need to be transferred to real robots, and their operational morphology (parallel gripper) differs from complex bimanual dexterous hands.
 
-Tab panels are a great way to display a labeled collection of related visuals without taking up too much space.
+### Multimodal Perception and Physics-Based Reconstruction
 
-<Tabs defaultValue="true">
-  <TabsList>
-    <TabsTrigger value="true">Ground truth</TabsTrigger>
-    <TabsTrigger value="diffc">DiffC (Flux-dev)</TabsTrigger>
-    <TabsTrigger value="msillm">MS-ILLM</TabsTrigger>
-  </TabsList>
-  <TabsContent value="true">
-    <Picture
-      src={dogsTrue}
-      alt="True photo of two dogs running side-by-side in shallow water"
-    />
-  </TabsContent>
-  <TabsContent value="diffc">
-    <Picture
-      src={dogsDiffc}
-      alt="Photo of two running dogs, lossily compressed using the DiffC algorithm"
-    />
-  </TabsContent>
-  <TabsContent value="msillm">
-    <Picture
-      src={dogsMsillm}
-      alt="Photo of two running dogs, lossily compressed using MS-ILLM"
-    />
-  </TabsContent>
-</Tabs>
+Visual-Tactile Fusion. Tactile sensors, such as GelSight or DIGIT [@lambeta2024digit360], provide high-resolution contact geometry and force cues. Some works have collected specialized tactile datasets [@fenganytouch] [@Li_2025], though these are typically limited in scale and task-specific. A key challenge lies in the synchronized integration of tactile signals with vision and proprioception into large-scale, general-purpose manipulation datasets. Furthermore, addressing the heterogeneity of tactile sensor data, TacQuad [@feng2025learning] provides aligned contact data from four sensor types, establishing a basis for cross-sensor unified tactile representation. However, such perception datasets typically lack integration with continuous manipulation tasks and physical dynamics. Going a step further, the NeuralFeels [@suresh2024neuralfeels] system implements an online visuo-tactile SLAM framework, which reconstructs the shape and pose of unknown objects in real-time via neural fields, significantly improving tracking robustness under heavy occlusion. It serves as a comprehensive technical exemplar for multimodal perception and physical interaction modeling. However, its accompanying FeelSight dataset is limited in scale and primarily focuses on simple in-hand rotation tasks for a single hand, lacking coverage of bimanual coordinated manipulation and more complex, long-horizon task sequences. Meanwhile, V-HOP introduces a learning-based visuo-haptic pose tracking framework. By leveraging a unified point cloud representation and a Transformer-based fusion mechanism, it achieves strong generalization capabilities across novel grippers, sensor types, and objects.
 
-### Carousel
+Physically Consistent Observation Reconstruction. An alternative to direct measurement involves inferring physical interactions through consistency with known physical laws. Recent approaches leverage physical simulation to convert purely kinematic demonstrations into physically plausible trajectories annotated with forces. DexCanvas [@xu2025dexcanvasbridginghumandemonstrations] pioneered this method for single-handed manipulation: it employs reinforcement learning to train a simulated hand to track captured object motion, while the physics simulator provides the resulting contact forces as ground truth. This reframes the ill-posed problem of "estimating forces from observations" into the well-posed problem of "controlling under physical constraints to replicate observed motion," thereby generating physically consistent annotations. However, this powerful paradigm has yet to be applied to the domain of bimanual robotic manipulation with real-world tactile sensing.
 
-A carousel is another useful pattern for a collection of visuals that don't necessarily have meaningful labels.
+As summarized in Table 1, existing datasets either lack physical force annotations (human datasets), are affected by the sim-to-real gap (synthetic robotic datasets), or are limited in scale and modality (real-world robotic datasets). Critically, there is currently no large-scale, multimodal dataset for bimanual robotic manipulation that integrates real-world robot proprioception, vision, and tactile sensing with physically validated interaction annotations. Our work aims to fill this gap. We introduce a dataset constructed from real-world bimanual robot demonstrations, which synchronously records joint states, multi-view RGB-D, and fingertip tactile sensing.
 
-<Carousel>
-  <CarouselSlide>
-    <Picture src={dogsTrue} alt="True photo of two dogs running side-by-side in shallow water" />
-  </CarouselSlide>
-  <CarouselSlide>
-    <Picture src={dogsDiffc} alt="Photo of two running dogs, lossily compressed using the DiffC algorithm" />
-  </CarouselSlide>
-  <CarouselSlide>
-    <Picture
-      src={dogsMsillm}
-      alt="Photo of two running dogs, lossily compressed using MS-ILLM"
-    />
-  </CarouselSlide>
-</Carousel>
+export const table1Data = {
+  headers: ["Dataset", "Dual-arm", "Tactile Modality", "Physical Verification", "Scale", "Main Modality", "Annotation Source"],
+  rows: [
+    ["EGO4D", "✓", "×", "×", "3700+ hours", "Video (1st-person + 3rd-person)", "None"],
+    ["Epic-Kitchens", "✓", "×", "×", "100+ hours", "RGB (1st-person)", "None"],
+    ["GRAB", "✓", "Binary", "×", "10 participants", "Motion Capture", "Thermal imaging"],
+    ["ARCTIC", "✓", "×", "×", "2.16 hours", "Motion Capture + RGB-D", "Markers"],
+    ["ContactDB", "×", "Binary (thermal)", "×", "3.5 hours", "RGB-D + thermal", "Thermal imaging"],
+    ["ContactPose", "×", "Binary (thermal)", "×", "2.9M frames", "RGB-D + thermal", "Thermal imaging"],
+    ["TacQuad", "×", "Vision-based tactile", "--", "72,606 frames", "RGB + video", "Vision-based tactile images"],
+    ["DexCanvas", "×", "Binary", "✓ (Sim)", "70+ hours (real)", "Motion Capture", "Markers"],
+    ["BiDexHands", "✓", "×", "✓ (Sim)", "40K+ FPS", "State", "Simulation"],
+    ["DexGraspNet 2.0", "×", "×", "✓ (Sim)", "427 million grasps", "State", "Optimization"],
+    ["Feelsight", "×", "Vision-based tactile", "✓", "About 35 min", "RGB-D + joints", "Vision-based tactile"],
+    ["V-HOP", "×", "Binary/Vision-based tactile", "×", "About 1.55M images", "RGB-D + tactile", "Binary/Vision-based tactile"],
+    ["FreeTacMan", "×", "Vision-based tactile", "✓", "3000k image pairs", "Vision-based tactile", "Vision-based tactile images"],
+    ["AgiBot-World", "✓", "×", "✓", "2976.4 hours", "RGB-D/Teleop + joints", "Robot"],
+    ["RoboNet", "×", "×", "×", "15 million frames", "RGB", "Robot"],
+    ["**Our Dataset**", "**✓**", "**High-res (real)**", "**✓**", "**Large-scale**", "**RGB-D + joints + tactile**", "**Robot + simulation**"]
+  ],
+  caption: "Dataset Comparison Table"
+};
 
-## Two columns
+<Table data={table1Data} />
 
-Use the two columns component to display two columns of content. In this example, the first column contains a YouTube video embed and the second column contains an interactive 3D model viewer. By default, they display side by side, but if the screen is narrow enough (for example, on mobile), they're arranged vertically.
+## Dataset Construction
 
-<TwoColumns>
-  <YouTubeVideo slot="left" videoId="wjZofJX0v4M" />
-  <ModelViewer slot="right" src="/BoxVertexColors.glb" alt="A cube colored with a rainbow gradient" />
-</TwoColumns>
+### Data Acquisition System Design
 
-## $\LaTeX$
+The data acquisition system consists of three parts: a hardware platform, a software architecture, and a human-machine interaction interface.
 
-You can also add $\LaTeX$ formulas, rendered during the build process using [$\KaTeX$](https://katex.org/) so they're quick to load for visitors of your project page. You can write them inline, like this: $a^2 + b^2 = c^2$. Or, you can write them as a block:
+#### Hardware Configuration
 
-$$
-\int_a^b f(x) dx
-$$
+The system is built upon a multi-configuration physical dual-arm robot platform, covering fixed dual-arm systems, wheeled-arm systems, and UMI (hand-held grippers). All robots are connected via a unified hardware abstraction interface, which semantically aligns different hardware configurations at the state, action, and sensing levels. This enables data from multi-configuration dual-arm robots to be uniformly represented, processed, and learned. The system integrates head-mounted and wrist-mounted RGB-D cameras along with fingertip tactile sensors. The latter are installed modularly on the end-effectors and aligned with the robot coordinate system through a calibration procedure. To achieve high-precision cross-modal synchronization, robot proprioceptive data, cameras, and visual-tactile sensors are acquired synchronously by a unified hardware triggering module.
 
-## Citation
+#### Software Architecture
 
-If you copy your bibliography into `./bibliography.bib`, you can cite papers using their BibTeX keys, and they'll be automatically formatted and included in the bibliography section at the end. For example: [@vaswani2017attention]. Note that these citations are distinct from footnotes[^mynote], which show up in a separate section if you use them.
+The system constructs a multimodal data-flow pipeline based on ROS2. By combining hardware triggering and timestamp mechanisms, temporal alignment of visual, tactile, and proprioceptive data is achieved. For data streams with different sampling rates, interpolation and alignment strategies are employed for uniform packaging. Consistency verification and anomaly detection mechanisms are introduced during both acquisition and post-processing stages to ensure data integrity and stability.
 
-[^mynote]: On the web, they should really be called "endnotes", since each page constitutes a full document.
+#### Human-Machine Interaction Interface
 
-## Table
+The system supports teleoperation teaching, action recording, and playback on real robots. During teaching, real-time visual and state feedback is provided. After acquisition, the demonstrator can review and filter trajectories through playback verification, thereby ensuring the quality of demonstrations. Meanwhile, all recorded demonstration trajectories can be accurately reproduced on physical robot platforms, providing a unified execution basis for subsequent policy learning and benchmark evaluation.
 
-Add simple tables using [GitHub Flavored Markdown syntax](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-tables):
+<Figure
+  src="Cross-embodiment_collection_schematic.png"
+  alt="Cross-Embodiment Data Collection"
+  caption="Cross-Embodiment Data Collection. The data acquisition system supports multiple robot embodiments including fixed dual-arm platforms, wheeled-arm systems, and UMI-style mobile manipulators. All platforms are connected via a unified hardware abstraction interface."
+/>
 
-| Model | Accuracy | F1 score | Training time (hours) |
-| :--- | :---: | :---: | :---: |
-| BERT-base | 0.89 | 0.87 | 4.5 |
-| RoBERTa-large | 0.92 | 0.91 | 7.2 |
-| DistilBERT | 0.86 | 0.84 | 2.1 |
-| XLNet | 0.90 | 0.89 | 6.8 |
+### Task Design
 
-## BibTeX citation
+<Figure
+  src="task_classification.png"
+  alt="Task Classification Framework"
+  caption="Task Classification Framework. The skill-axis framework categorizes bimanual manipulation tasks along six orthogonal dimensions: bimanual coordination structure, atomic action types, contact and tactile modes, object and geometry properties, perception modality requirements, and task composition hierarchy."
+/>
 
-Displaying the BibTeX entry for your paper in a code block makes it easy to copy and paste.
+To systematically construct a multi-configuration dual-arm multimodal manipulation task suite, this paper proposes a task generation framework based on the combination of multidimensional skill axes. Within this framework, each task is defined as a "minimally executable instance," which is uniquely characterized by selecting specific values along multiple orthogonal skill axes, thereby capturing the task's structural and semantic properties.
 
-```bibtex
-@misc{roman2024academic,
-  author = "{Roman Hauksson}",
-  title = "Academic Project Page Template",
-  year = "2024",
-  howpublished = "\url{https://research-template.roman.technology}",
-}
-```
+The framework is organized around three core axes that fundamentally describe the cooperative action, atomic operations, and contact interaction:
 
-## Bibliography
+**A. Bimanual Coordination Structure**: This includes the Coordination Pattern (e.g., Symmetric, Asymmetric, Master-Slave, Sequential) and Temporal Coupling (e.g., Synchronous, Staggered, Alternating). It is designed to explicitly model the structural and temporal interdependencies that are irreducible to single-arm actions.
 
-[^ref]
+**B. Atomic Action Type**: Tasks are decomposed into sequences of minimal, interpretable operational units—such as grasp, hold, pull, push, rotate, align, insert, release—replacing traditional sub-trajectory descriptions to enhance semantic clarity and transferability.
+
+**C. Contact & Tactile Mode**: This axis encompasses the Fingertip Contact State (e.g., none, initial contact, stable contact, sliding contact), Force Regulation Mode, and Contact Asymmetry (unilateral/bilateral). It explicitly models the interactive process at the tactile level, supporting the development of closed-loop policies based primarily on tactile feedback.
+
+Supplementary axes are introduced to ensure comprehensive task description and enhance the framework's extensibility:
+
+**D. Object & Geometry**: Includes Object Count, Constraint Type (e.g., free motion, kinematic constraint, insertion-like), and Object Geometry category, reflecting the physical and geometric complexity of the task.
+
+**E. Perception Modality**: Evaluates Visual Availability (e.g., full-view, partial-occlusion) and Tactile Dependency (optional/critical), facilitating analysis of the necessity for multimodal perception across different tasks.
+
+**F. Task Composition Hierarchy**: Characterizes task horizon and compositional complexity via the Atomic Task Count, supporting systematic coverage from single atomic tasks to long-horizon combinations.
+
+This framework enables the generation of diverse, well-structured task instances through flexible axis combinations. For example, the task "collaboratively aligning and screwing a cap onto a bottle" can be described as:
+
+- A: Coordination Pattern = Master-Slave, Temporal Coupling = Synchronous.
+- B: Atomic Action Sequence = grasp → hold → rotate.
+- C: Fingertip Contact State = stable contact + sliding, Contact Asymmetry = bilateral.
+
+By providing this structured semantic foundation, the framework supports the systematic generation, categorization, and analysis of dual-arm manipulation tasks, paving the way for subsequent skill learning, transfer, and benchmarking.
+
+Task Categories: Catering Service, Household and Furniture Care, Commercial and Pharmaceutical Scenarios, Industrial Manufacturing.
+
+### Data Preprocessing and Quality Control
+
+#### Data Review and Initial Labeling
+
+Prior to model training, we perform dataset auditing and weak annotation to identify potential anomalies and sensor artifacts. Specifically, sliding-window statistics are computed on each sensor channel to detect distribution shifts and abrupt deviations, enabling the screening of abnormal signal patterns and inconsistent interactions. Based on these detections, heuristic rules informed by physical constraints are applied to generate event-level weak labels, such as contact onset, anomalous interactions, or failed demonstrations.
+
+This procedure follows common practices in time-series anomaly detection and robotic sensor monitoring, where weakly supervised methods are widely adopted to ensure data quality in the absence of large-scale manual annotations. Additionally, temporal consistency across multiple modalities is leveraged as an auxiliary criterion to cross-validate anomalous cases that are difficult to identify using a single modality, thereby further improving the reliability of weak annotations.
+
+#### Automatic Anomaly Detection
+
+We adopt a channel-wise statistical anomaly detection approach based on sliding window mean and variance estimation, where samples exceeding an n-sigma threshold are flagged as anomalies. This method belongs to the class of parametric statistical time-series anomaly detection techniques, which are widely used as interpretable and efficient baselines in sensor-based and robotic monitoring systems. Similar statistical thresholding approaches have been extensively applied to force/torque and tactile signal monitoring for collision detection, contact state change detection, and fault diagnosis in robotic manipulation.
+
+#### Temporal Alignment and Resampling
+
+Due to heterogeneous sampling rates and communication delays across visual, tactile, proprioceptive, and control streams, raw sensor data are not temporally aligned. Such misalignment can degrade downstream multimodal representation learning and policy training.
+
+We use the robot control loop as the reference timeline and align all modalities based on their timestamps provided by ROS2. All streams are resampled to a unified frequency. Visual observations are aligned at the frame level, while proprioceptive and tactile signals are resampled using linear interpolation or zero-order hold, depending on their physical semantics. Control commands are resampled using zero-order hold to preserve piecewise-constant actuation.
+
+After temporal alignment, demonstrations with excessive missing data or severe temporal jitter are filtered out. Aligned trajectories are further segmented into task-relevant episodes for downstream learning.
+
+### Dataset Statistics
+
+The dataset is collected from real-world bimanual manipulation tasks on the OpenLoong platform, featuring multi-modal sensory inputs including RGB cameras, visual-tactile sensors, and robot proprioception.
+
+**Data Collection Platform**: The OpenLoong bimanual manipulation platform features dual 7-DOF arms (14 joints total), three RGB-D cameras (left, right, and head viewpoints), four GelSight-style visual-tactile sensors on both end effectors, and state feedback including joint positions, velocities, end-effector poses, and gripper states.
+
+**Observation Modalities**:
+
+| Modality | Keys | Dimension |
+|----------|------|-----------|
+| RGB Camera | camera_left, camera_right, head_camera | $3 \times H \times W$ |
+| Visual-Tactile | tactile_left, tactile_right | $3 \times H \times W$ |
+| Joint State | - | 14 (positions) + 14 (velocities) |
+| End-Effector | - | $7 \times 2$ (pose per arm) |
+| Gripper | - | 2 (width per arm) |
+
+**Action Space**: The action space corresponds to the bimanual configuration with joint control (14-dimensional), end-effector control (7-DOF pose per arm), and gripper control (binary open/close per arm).
+
+**Dataset Statistics**:
+
+| Metric | Value |
+|--------|-------|
+| Total Episodes | ~120,000+ |
+| Trajectory Duration | 10-60s per episode |
+| Sampling Rate | 30Hz |
+| Total Frames | ~36M+ |
+| Train/Val Split | 90% / 10% |
+
+## Cross-Modal Alignment
+
+Cross-modal retrieval aims to establish alignment relationships across heterogeneous modality embedding spaces, such that semantically paired samples from different modalities are mapped close to each other. We adopt the OpenTouch framework, which projects three modalities—visual (V), tactile (T), and pose (P)—onto a shared $d$-dimensional unit hypersphere, and optimizes cross-modal alignment via a contrastive learning objective.
+
+### Contrastive Learning Framework
+
+Given a mini-batch of $B$ paired samples $\{(\mathbf{x}_i^q, \mathbf{x}_i^t)\}_{i=1}^{B}$, where $\mathbf{x}^q$ denotes the query modality and $\mathbf{x}^t$ the target modality, the respective encoders extract embeddings that are subsequently $L_2$-normalized:
+
+$$\mathbf{z}_i^q = \frac{f_q(\mathbf{x}_i^q)}{\|f_q(\mathbf{x}_i^q)\|_2}, \quad \mathbf{z}_i^t = \frac{f_t(\mathbf{x}_i^t)}{\|f_t(\mathbf{x}_i^t)\|_2}$$
+
+where $f_q(\cdot)$ and $f_t(\cdot)$ are the query and target encoder networks, respectively. $L_2$ normalization ensures that the inner product between any two embeddings equals their cosine similarity.
+
+We adopt the symmetric InfoNCE loss (a.k.a. CLIP loss) as the cross-modal alignment objective. For a batch of $B$ paired samples, the pairwise cosine similarity matrix is scaled by a learned temperature parameter:
+
+$$S_{ij} = \frac{\mathbf{z}_i^q \cdot \mathbf{z}_j^t}{\tau}$$
+
+The contrastive loss for the $i$-th query is:
+
+$$\ell_i^{q \to t} = -\log \frac{\exp(S_{ii})}{\displaystyle\sum_{j=1}^{B} \exp(S_{ij})}$$
+
+The symmetric direction is computed analogously. The total loss averages both directions:
+
+$$\mathcal{L}{\mathrm{CLIP}} = \frac{1}{2}\left( \frac{1}{B}\sum_{i=1}^{B}\ell_i^{q \to t} + \frac{1}{B}\sum_{i=1}^{B}\ell_i^{t \to q} \right)$$
+
+The temperature $\tau$ is stored in log-space as a learnable scalar $\alpha = \ln(1/\tau)$ and recovered during the forward pass via exponentiation:
+
+$$\tau = e^{-\alpha}, \quad \alpha_0 = \ln\!\left(\tfrac{1}{0.07}\right) \approx 2.66$$
+
+To prevent degenerate temperature values during training, $\alpha$ is clamped to the interval $[0,\, \ln 100]$, corresponding to $\tau \in [0.01,\, 1.0]$. A smaller $\tau$ produces a sharper softmax, yielding a stronger contrastive signal.
+
+### Modality Encoder Architectures
+
+**Visual Encoder**: The visual encoder uses a frozen pretrained DINOv3 (ViT-B/16) backbone (~85M parameters) with an output feature dimension of 768. Only the subsequent linear projection layer—which maps features into the shared embedding space $\mathbb{R}^d$—is trained.
+
+**Tactile Encoder**: The tactile encoder for $224 \times 224$ RGB tactile images employs a lightweight five-stage convolutional network (TactileCNNEncoder). Each stage consists of a stride-2 convolution, Batch Normalization, and GELU activation, with channels progressing as $3 \to 32 \to 64 \to 128 \to 256 \to d$, followed by global average pooling to produce a $d$-dimensional embedding (~2M parameters).
+
+**Pose Encoder**: The pose encoder processes the robot state consisting of 14 joint angles and two gripper opening values, forming a 16-dimensional input vector. The encoder is a four-layer MLP with a hidden dimension of 128; each layer is followed by Batch Normalization, GELU activation, and Dropout ($p=0.1$).
+
+### Retrieval Evaluation Metrics
+
+Retrieval performance is quantified by Recall@$k$ (R@$k$) and Mean Average Precision (mAP). Given $N$ query samples in the test set and a gallery ranked by cosine similarity, R@$k$ measures the fraction of queries for which the ground-truth target appears within the top-$k$ retrieved results:
+
+$$\mathrm{R@}k = \frac{1}{N}\sum_{i=1}^{N} \mathbf{1}\!\left[\mathrm{rank}(\mathbf{z}_i^t \mid \mathbf{z}_i^q) \leq k\right]$$
+
+mAP is defined as the mean reciprocal rank over all queries:
+
+$$\mathrm{mAP} = \frac{1}{N}\sum_{i=1}^{N} \frac{1}{\mathrm{rank}(\mathbf{z}_i^t \mid \mathbf{z}_i^q)}$$
+
+### Retrieval Experiments
+
+We evaluate the trained cross-modal retrieval model under two experimental settings: (1) Bimodal mutual retrieval, where each of the three modality pairs (Visual–Tactile, Visual–Pose, Tactile–Pose) is evaluated in both query directions; and (2) Trimodal retrieval, which covers both two-to-one queries (a fused dual-modality embedding retrieves the third modality) and one-to-two queries (a single modality embedding retrieves a fused dual-modality target).
+
+#### Bimodal Mutual Retrieval
+
+export const table2Data = {
+  headers: ["Method", "R@1", "R@5", "R@10", "mAP"],
+  rows: [
+    ["Chance", "0.0064", "0.0322", "0.0644", "0.0658"],
+    ["CCA (Random-CNN)", "0.0966", "0.3991", "0.7274", "0.5439"],
+    ["PLSCA (Random-CNN)", "0.0322", "0.2253", "0.5021", "0.4106"],
+    ["CCA (Sparsh)", "0.0837", "0.3991", "0.7467", "0.5781"],
+    ["PLSCA (Sparsh)", "0.0579", "0.2511", "0.5536", "0.4232"],
+    ["**Ours**", "**0.24**", "**1.08**", "**2.11**", "**1.23**"]
+  ],
+  caption: "Bimodal mutual retrieval performance (V→T direction)"
+};
+
+<Table data={table2Data} />
+
+<Figure
+  src="retrieval_bar_chart.png"
+  alt="Bimodal mAP Bar Chart"
+  caption="Bimodal mAP Bar Chart"
+/>
+
+<Figure
+  src="retrieval_heatmap.png"
+  alt="Bimodal mAP Heatmap"
+  caption="Bimodal mAP Heatmap"
+/>
+
+#### Trimodal Retrieval
+
+export const table3Data = {
+  headers: ["Method", "VP→T R@1", "VP→T R@5", "TP→V R@1", "TP→V R@5"],
+  rows: [
+    ["Chance", "0.0064", "0.0322", "0.0064", "0.0322"],
+    ["CCA (Random-CNN)", "0.0772", "0.3219", "0.2317", "1.2038"],
+    ["PLSCA (Random-CNN)", "0.0386", "0.2060", "0.0644", "0.2832"],
+    ["**Ours**", "**0.25**", "**1.32**", "**1.54**", "**7.30**"]
+  ],
+  caption: "Trimodal retrieval performance comparison"
+};
+
+<Table data={table3Data} />
+
+<Figure
+  src="trimodal_bar_chart.png"
+  alt="Trimodal mAP Bar Chart"
+  caption="Trimodal mAP Bar Chart"
+/>
+
+<Figure
+  src="trimodal_heatmap.png"
+  alt="Trimodal mAP Heatmap"
+  caption="Trimodal mAP Heatmap"
+/>
+
+## Real-Robot Validation and Inference
+
+Learning-based manipulation policies, especially those trained via imitation learning, require thorough validation before real-world deployment. We present a comprehensive in-distribution validation framework with a four-layer progressive validation strategy.
+
+### Layer 1: Action Reconstruction Validation
+
+The first layer verifies whether the policy can accurately reproduce expert actions from training data. This is the most fundamental test—if the policy cannot reconstruct expert demonstrations, there is no basis for expecting real-world performance.
+
+**Methodology**: We randomly sample $N$ frames from the training dataset. For each frame, we input the original observation to the policy and compare the predicted action with the ground truth expert action.
+
+**Metrics**:
+
+The Mean Absolute Error (MAE) measures average prediction error:
+
+$$\text{MAE} = \frac{1}{N} \sum_{i=1}^{N} |\hat{a}_i - a_i|$$
+
+The Mean Squared Error (MSE) penalizes large errors more heavily:
+
+$$\text{MSE} = \frac{1}{N} \sum_{i=1}^{N} (\hat{a}_i - a_i)^2$$
+
+The Expert Similarity metric normalizes MAE by the variance of expert actions:
+
+$$\text{Expert Similarity} = 1 - \frac{\text{MAE}}{\sigma(a) + \epsilon}$$
+
+**Pass Criteria**: $\text{MAE} < 0.05$ serves as a reasonable threshold for bimanual manipulation.
+
+### Layer 2: Single-Step Closed-Loop Validation
+
+Beyond reconstruction accuracy, Layer 2 verifies that policy outputs are physically reasonable and smooth.
+
+**Action Smoothness**: We compute the action difference between consecutive timesteps:
+
+$$\Delta a_t = |a_{t+1} - a_t|$$
+
+**Jerk Analysis**:
+
+$$\text{Jerk} = \left|\frac{d^3 a}{dt^3}\right| = |a_{t+2} - 3a_{t+1} + 3a_t - a_{t-1}|$$
+
+**Smoothness Score**:
+
+$$\text{Smoothness Score} = \frac{1}{1 + \text{Jerk}}$$
+
+### Layer 3: Short-Horizon Rollout Validation
+
+While Layers 1-2 verify per-timestep behavior, Layer 3 tests temporal consistency—whether errors accumulate over time.
+
+**Error Trajectory**:
+
+$$E(t) = \text{mean}(|\hat{a}_t - a_t|)$$
+
+**Pass Criteria**: $\text{Error Growth} < 0.1$ indicates stable short-horizon behavior.
+
+### Layer 4: Consistency Evaluation
+
+For stochastic policies, output consistency is crucial for reproducible behavior.
+
+**Variance Metrics**:
+
+$$\text{Var}(a) = \frac{1}{K} \sum_{k=1}^{K} (a_k - \bar{a})^2$$
+
+**Consistency Score**:
+
+$$\text{Consistency Score} = 1 - \min(\text{Mean Variance}, 1.0)$$
+
+### Overall Scoring System
+
+To provide a single validation metric, we compute a weighted overall score:
+
+$$\text{Overall Score} = 0.40 \times \text{Reconstruction Score} + 0.30 \times \text{Smoothness Score} + 0.20 \times \text{Stability Score} + 0.10 \times \text{Consistency Score}$$
+
+**Grade Thresholds**:
+
+| Score Range | Grade | Interpretation |
+|-------------|-------|----------------|
+| ≥ 0.9 | Excellent | Ready for real robot deployment with minimal caution |
+| ≥ 0.8 | Good | Suitable for deployment with standard evaluation |
+| ≥ 0.7 | Fair | Requires detailed real-world testing before deployment |
+| ≥ 0.6 | Pass | Needs improvement before deployment |
+| < 0.6 | Fail | Not recommended for deployment, retraining needed |
+
+### Real Robot Inference Pipeline
+
+We train manipulation policies using two open-source frameworks: RoboMimic [@robomimic] and LeRobot. These frameworks provide mature infrastructure for data loading, model training, checkpointing, and evaluation.
+
+**Supported Algorithms**:
+- **BC (Behavior Cloning)**: Standard supervised learning with an MLP actor network
+- **Diffusion Policy (DP)**: Diffusion-based action generation
+- **ACT (Action Chunking Transformer)**: Transformer-based policy with temporal observation ensemble
+
+**Observation Acquisition**: The system acquires multimodal observations from multiple sensing modalities: RGB images from three camera viewpoints (left hand, right hand, and head), visual-tactile sensor readings from GelSight-style sensors mounted on the fingertips, and robot proprioception.
+
+**Temporal Synchronization**: We employ a buffering mechanism that maintains a sliding window of recent observations. When a policy inference is requested, the system retrieves the most recent synchronized observation tuple from the buffer.
+
+**Action Processing and Safety**: Raw policy outputs undergo several processing steps before being sent to the robot. Joint-level safety limits are applied:
+
+$$q_{\text{cmd}} = \text{clip}\left(q_{\text{target}}, q_{\min}, q_{\max}\right)$$
+
+Velocity constraints are enforced by limiting the change between consecutive commands:
+
+$$\Delta q = q_{\text{cmd}} - q_{\text{prev}}, \quad \|\Delta q\| \leq v_{\max} \cdot \Delta t$$
+
+## Conclusion
+
+We introduced a large-scale multimodal dataset for bimanual robot manipulation that addresses the critical gap in existing datasets: the lack of real-world physical interaction data that jointly captures visual, tactile, and proprioceptive signals in a bimanual setting. Our dataset, collected across multiple robot embodiments including fixed dual-arm platforms, wheel-arm systems, and UMI-style mobile manipulators, synchronously records joint-level proprioception, multi-view RGB-D observations, and high-resolution fingertip tactile signals. By grounding all demonstrations in real hardware execution, we avoid sim-to-real artifacts and provide a reliable foundation for both representation learning and policy evaluation.
+
+A key contribution of this work is the skill axes classification framework, which structures demonstrations along orthogonal skill axes—bimanual coordination patterns, atomic manipulation actions, contact and tactile modes, object geometry, perception modality requirements, and task composition hierarchy. This structured representation enables systematic recomposition and analysis of over 380 bimanual tasks without relying on ambiguous sub-trajectory segmentation, supporting both fine-grained skill transfer and generalization analysis.
+
+Our experimental results on cross-modal retrieval demonstrate the effectiveness of the proposed contrastive learning framework, where our method consistently outperforms CCA and PLSCA baselines across all bimodal and trimodal retrieval tasks. These results also validate that visual-tactile-pose representations learned via our framework capture meaningful cross-modal correspondences that are critical for contact-intensive bimanual manipulation.
+
+More broadly, this work highlights the importance of joint visual–tactile–proprioceptive modeling for contact-rich manipulation and suggests a shift from vision-dominated learning pipelines toward truly multimodal interaction-centric representations. We believe that such structured, physically grounded datasets will play a crucial role in enabling scalable learning of general-purpose manipulation policies.
+
+Despite these contributions, several limitations remain. First, the dataset currently focuses on dual-arm platforms with fixed or wheeled bases; extending to mobile humanoid embodiments would further broaden generalization evaluation. Second, while our task framework supports long-horizon compositions, the current benchmark primarily evaluates short-horizon skill retrieval; extending to full task-level policy learning and evaluation is a natural next step. Third, the cross-modal retrieval framework operates in a supervised setting with paired modality data; exploring self-supervised or weakly supervised regimes with unpaired multimodal data could improve scalability.
+
+Looking forward, we see several promising directions. The structured skill axis framework provides a foundation for systematic benchmarking of bimanual manipulation policies, enabling controlled studies on the role of tactile feedback, coordination complexity, and generalization across task compositions. The dataset also opens opportunities for studying physically consistent force annotation through inverse dynamics or sim-to-real transfer. Finally, we envision this work as a step toward building general-purpose bimanual manipulation policies that can leverage multimodal sensing to handle contact-intensive tasks in unstructured real-world environments.
