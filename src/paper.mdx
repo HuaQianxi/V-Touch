@@ -1,33 +1,44 @@
 ---
-title: "VTOUCH: A Multimodal Dataset with Vision-Based Tactile Enhancement for Bimanual Manipulation"
+title: "VTouch++: A Multimodal Dataset with Vision-Based Tactile Enhancement for Bimanual Manipulation"
 authors:
-  - name: David S. Hippocampus
-    institution: Cranberry-Lemon University
-    notes: ["*"]
-  - name: Elias D. Striatum
-    institution: Mount-Sheikh University
-    notes: ["†"]
+  - name: Qianxi Hua
+    notes: ["*", "1"]
+  - name: Xinyue Li
+    notes: ["*", "1"]
+  - name: Zheng Yan
+    notes: ["*", "1", "2"]
+  - name: Yang Li
+    notes: ["1"]
+  - name: Chi Zhang
+    notes: ["1", "3"]
+  - name: Yongyao Li
+    notes: ["†", "1"]
+  - name: Yufei Liu
+    notes: ["†", "1"]
 conference: "arXiv preprint"
 notes:
+  - symbol: "1"
+    text: "Humanoid Robot (Shanghai) Co., Ltd., Shanghai, China"
+  - symbol: "2"
+    text: "Shanghai Research Institute for Intelligent Autonomous Systems, Tongji University, Shanghai, China"
+  - symbol: "3"
+    text: "School of Astronautics, Harbin Institute of Technology, Harbin, China"
   - symbol: "*"
-    text: "Cranberry-Lemon University, Department of Computer Science"
+    text: "Equal contribution"
   - symbol: "†"
-    text: "Mount-Sheikh University, Department of Electrical Engineering"
+    text: "Corresponding author. Yongyao Li: yongyao.li@openloong.net · Yufei Liu: liuyufei@openloong.net"
 links:
   - name: Paper
-    url: https://arxiv.org/abs/XXXX.XXXX
+    url: https://arxiv.org/abs/2604.20444
     icon: ri:file-pdf-2-line
-  - name: Code
-    url: https://github.com/your-repo
-    icon: ri:github-line
   - name: Dataset
-    url: https://dataset-url.com
+    url: https://ai.atomgit.com/openloong/visuo-tactile
     icon: ri:database-2-line
   - name: Community
-    url: https://community-url.com
+    url: https://www.openloong.org.cn/cn/datasets/baihu-vtouch
     icon: ri:group-line
 theme: light
-description: "VTOUCH: A Multimodal Dataset with Vision-Based Tactile Enhancement for Bimanual Manipulation"
+description: "VTouch++: A Multimodal Dataset with Vision-Based Tactile Enhancement for Bimanual Manipulation"
 thumbnail: screenshot-light.png
 favicon: favicon.svg
 ---
@@ -35,7 +46,7 @@ favicon: favicon.svg
 import Figure from "./components/Figure.astro";
 import Picture from "./components/Picture.astro";
 
-import datasetView from "./assets/dataset view.png";
+import datasetView from "./assets/dataset_view.png";
 import crossEmbodiment from "./assets/Cross-embodiment_collection_schematic.PNG";
 import taskClass from "./assets/task_classification.PNG";
 import retrievalBar from "./assets/retrieval_bar_chart.png";
@@ -44,23 +55,20 @@ import retrievalRadar from "./assets/retrieval_radar_chart.png";
 import trimodalBar from "./assets/trimodal_bar_chart.png";
 import trimodalHeat from "./assets/trimodal_heatmap.png";
 import trimodalRadar from "./assets/trimodal_radar_chart.png";
-import trajectory3d from "./assets/trajectory_3d_with_projections.png";
 import trajectoryCompare from "./assets/trajectory_comparison.png";
 import lineMetrics from "./assets/line_chart_metrics.png";
 import dotPlot from "./assets/dot_plot.png";
 import improvementBar from "./assets/improvement_bar.png";
-import actionCompare from "./assets/action_comparison.png";
+import actionCompareDims from "./assets/action_comparison_dims_8_11.png";
 
 ## Abstract
 
-We introduce **VTOUCH**, a large-scale multimodal dataset for bimanual robot manipulation featuring synchronized proprioception, multi-view RGB-D observations, and high-resolution fingertip tactile signals from GelSight sensors. The dataset covers 380+ bimanual tasks with 100+ atomic action compositions, collected across multiple robot embodiments.
+Embodied intelligence has advanced rapidly in recent years; however, bimanual manipulation—especially in contact-rich tasks—remains challenging. This is largely due to the lack of datasets with rich physical interaction signals, systematic task organization, and sufficient scale. To address these limitations, we introduce the **VTOUCH** dataset. It leverages vision-based tactile sensing to provide high-fidelity physical interaction signals, adopts a matrix-style task design to enable systematic learning, and employs automated data collection pipelines covering real-world, demand-driven scenarios to ensure scalability. To further validate the effectiveness of the dataset, we conduct extensive quantitative experiments on cross-modal retrieval as well as real-robot evaluation. Finally, we demonstrate real-world performance through generalizable inference across multiple robots, policies, and tasks.
 
 <Figure>
   <Picture slot="figure" src={datasetView} alt="Dataset Overview" />
-  <Fragment slot="caption">Dataset Overview. Multi-modal bimanual manipulation dataset with synchronized proprioception, multi-view RGB-D, and fingertip tactile signals.</Fragment>
+  <Fragment slot="caption">Dataset Overview. Multi-modal bimanual manipulation dataset with synchronized proprioception, multi-view RGB-D, and fingertip tactile signals from multiple robot embodiments. The dataset comprises over 380+ bimanual tasks with 100+ atomic action compositions.</Fragment>
 </Figure>
-
-Our dataset addresses the critical gap in existing benchmarks by jointly capturing visual, tactile, and proprioceptive signals from real robot hardware, enabling research on contact-rich bimanual manipulation.
 
 ## Dataset Comparison
 
@@ -74,23 +82,32 @@ We compare VTOUCH against existing datasets covering human motion capture, synth
 | Total Frames | ~36M+ |
 | Trajectory Duration | 10-60s per episode |
 | Sampling Rate | 30Hz |
-| Robot Platforms | Qinglong, Wheel-arm, UMI |
+| Robot Platforms | Qingloong, Wheelloong M1, PIKA |
 | Sensory Modalities | RGB-D + Tactile + Proprioception |
-| Train/Val Split | 90% / 10% |
 
 **Comparison with Existing Datasets**
 
 | Dataset | Dual-arm | Tactile | Physical | Scale | Modality |
 |---------|:--------:|:-------:|:--------:|-------|----------|
+| *Human Bimanual Interaction Datasets* | | | | | |
 | EGO4D | ✓ | × | × | 3700+ hrs | Video |
 | Epic-Kitchens | ✓ | × | × | 100+ hrs | RGB |
 | GRAB | ✓ | Binary | × | 10 subjects | MoCap |
-| DexGraspNet 2.0 | × | × | Sim | 427M grasps | State |
-| AgiBot-World | ✓ | × | Real | 2976 hrs | RGB-D |
+| ARCTIC | ✓ | × | × | 2.16 hrs | MoCap + RGB-D |
+| *Robotic Manipulation Datasets* | | | | | |
+| BiDexHands | ✓ | × | ✓ (Sim) | 40K+ FPS | State |
+| DexGraspNet 2.0 | × | × | ✓ (Sim) | 427M grasps | State |
+| AgiBot-World | ✓ | × | ✓ | 2976 hrs | RGB-D |
 | RoboNet | × | × | × | 15M frames | RGB |
-| ** Ours ** | **✓** | **Real+Sim** | **✓** | **Large** | **RGB-D+Tactile** |
-
-*Comparison: VTOUCH uniquely provides dual-arm + tactile + physical validation.*
+| FreeTacMan | × | Vision-based | ✓ | 3000K pairs | Vision-tactile |
+| *Multimodal Perception Datasets* | | | | | |
+| DexCanvas | × | Binary | ✓ (Sim) | 70+ hrs | MoCap |
+| ContactDB | × | Binary (thermal) | × | 3.5 hrs | RGB-D + thermal |
+| ContactPose | × | Binary (thermal) | × | 2.9M frames | RGB-D + thermal |
+| TacQuad | × | Vision-based | — | 72,606 frames | RGB + video |
+| Feelsight | × | Vision-based | ✓ | ~35 min | RGB-D + joints |
+| V-HOP | × | Binary/Vision-based | × | ~1.55M images | RGB-D + tactile |
+| **Ours** | **✓** | **High-res (real)** | **✓** | **Large-scale** | **RGB-D+Tactile** |
 
 ## Data Acquisition System
 
@@ -98,7 +115,7 @@ To enable cross-embodiment data collection, we built a unified hardware abstract
 
 <Figure>
   <Picture slot="figure" src={crossEmbodiment} alt="Cross-Embodiment Data Collection" />
-  <Fragment slot="caption">Cross-embodiment data collection system supporting fixed dual-arm, wheeled-arm, and UMI-style mobile manipulators.</Fragment>
+  <Fragment slot="caption">Cross-embodiment data collection system supporting fixed dual-arm platforms, wheeled-arm systems, and UMI-style mobile manipulators. All platforms are connected via a unified hardware abstraction interface that semantically aligns different hardware configurations at the state, action, and sensing levels.</Fragment>
 </Figure>
 
 The system integrates head-mounted and wrist-mounted RGB-D cameras along with GelSight fingertip tactile sensors, all synchronized via a unified hardware triggering module achieving precise temporal alignment across modalities.
@@ -109,7 +126,7 @@ We propose a skill-axis classification framework that characterizes tasks along 
 
 <Figure>
   <Picture slot="figure" src={taskClass} alt="Task Classification Framework" />
-  <Fragment slot="caption">Skill-axis framework with 6 orthogonal dimensions for systematic task categorization.</Fragment>
+  <Fragment slot="caption">Skill-axis framework with 6 orthogonal dimensions for systematic task categorization: (A) Bimanual Coordination Structure, (B) Atomic Action Types, (C) Contact and Tactile Modes, (D) Object and Geometry, (E) Perception Modality, (F) Task Composition Level.</Fragment>
 </Figure>
 
 This structured representation enables generation of diverse task instances through flexible axis combinations, supporting both fine-grained skill transfer and generalization analysis.
@@ -140,7 +157,7 @@ The bar chart below visualizes mAP comparison across different methods.
 
 <Figure>
   <Picture slot="figure" src={retrievalBar} alt="Bimodal mAP Bar Chart" />
-  <Fragment slot="caption">mAP comparison: our method achieves 1.23% mAP, more than double the best baseline.</Fragment>
+  <Fragment slot="caption">mAP comparison: our method achieves 1.23% mAP on V→T, more than double the best baseline.</Fragment>
 </Figure>
 
 The heatmap below shows retrieval performance across all modality pairs.
@@ -232,45 +249,35 @@ We validate policies using a four-layer progressive validation strategy before r
 
 ### Validation Results
 
-Results on OpenLoong platform using ACT policy with 3 observation steps:
+We validate three policy implementations on the VTouch dataset: ACT with single-frame observation, ACT with temporal context, and a diffusion-based policy. The diffusion policy achieves the best overall performance with the lowest MAE (0.022) and highest Expert Similarity (0.848), while the temporal ACT model shows negative error growth (-0.010), indicating stable short-horizon behavior.
 
-| Layer | Metric | Value |
-|-------|--------|-------|
-| Layer 1: Reconstruction | MAE | 0.677 |
-| Layer 1: Reconstruction | Expert Similarity | 0.445 |
-| Layer 2: Smoothness | Action Diff Mean | 0.007 |
-| Layer 3: Rollout | Final Error | 0.690 |
-| Layer 3: Rollout | Error Growth | -0.014 |
-| Layer 4: Consistency | Mean Variance | 0.000283 |
-| **Overall** | **Score** | **0.778 (Fair)** |
+| Metric | ACT (base) | ACT (temporal) | Diffusion Policy |
+|--------|:----------:|:--------------:|:----------------:|
+| n_obs_steps | 1 | 3 | 1 |
+| MAE | 0.516 | 0.709 | 0.022 |
+| Expert Similarity | 0.577 | 0.435 | 0.848 |
+| Action Diff Mean | 0.165 | 0.008 | 0.044 |
+| Final Error (Layer 3) | 0.500 | 0.691 | 0.431 |
+| Error Growth (Layer 3) | 0.0003 | -0.010 | 0.0002 |
+| Mean Variance (Layer 4) | 0.0001 | 0.0002 | 0.0001 |
+| **Overall Score** | **0.674** | **0.774** | **0.836** |
 
-*Validation results on OpenLoong platform with ACT policy (n_obs_steps=3).*
-
-The negative error growth (-0.014) indicates stable short-horizon behavior.
+*Validation results on OpenLoong platform. Negative error growth for ACT (temporal) indicates stable short-horizon behavior.*
 
 ### Trajectory Analysis
 
-Figure 13 compares predicted trajectories against expert demonstrations in 3D space.
-
-<Figure>
-  <Picture slot="figure" src={trajectory3d} alt="3D Trajectory Comparison" />
-  <Fragment slot="caption">Predicted vs Expert trajectories: 3D visualization with coordinate projections.</Fragment>
-</Figure>
-
-Figure 14 shows additional trajectory comparison.
+The figure below compares predicted trajectories against expert demonstrations in 3D space.
 
 <Figure>
   <Picture slot="figure" src={trajectoryCompare} alt="Trajectory Comparison" />
-  <Fragment slot="caption">Trajectory comparison across multiple execution trials.</Fragment>
+  <Fragment slot="caption">Layer 1: Predicted vs Expert trajectories on training data (In-distribution Action Reconstruction).</Fragment>
 </Figure>
 
 ### Action Comparison
 
-Figure 15 illustrates policy output distribution vs expert actions.
-
 <Figure>
-  <Picture slot="figure" src={actionCompare} alt="Action Comparison" />
-  <Fragment slot="caption">Action comparison: predicted actions vs expert actions across dimensions.</Fragment>
+  <Picture slot="figure" src={actionCompareDims} alt="Action Comparison Dims 8-11" />
+  <Fragment slot="caption">Action comparison for dimensions 8–11. Blue: ground truth expert actions; red dashed: predicted policy actions; orange shading: prediction error per timestep.</Fragment>
 </Figure>
 
 ## Conclusion
@@ -278,10 +285,10 @@ Figure 15 illustrates policy output distribution vs expert actions.
 VTOUCH provides the first large-scale, multimodal bimanual manipulation dataset with synchronized RGB-D, tactile, and proprioceptive data collected from real robot hardware. Key contributions:
 
 - **380+ bimanual tasks** with 100+ atomic action compositions
-- **Cross-embodiment data collection** across Qinglong, wheeled-arm, and UMI platforms
+- **Cross-embodiment data collection** across Qingloong, Wheelloong, and UMI platforms
 - **Skill-axis classification framework** for systematic task organization
 - **Cross-modal retrieval** achieving 2-3x improvement over baselines
-- **4-layer validation framework** for systematic policy evaluation
+- **4-layer validation framework** for systematic policy evaluation across multiple policies
 
 The dataset and benchmarks enable research toward robust, generalizable bimanual manipulation in real-world environments.
 
@@ -289,12 +296,12 @@ The dataset and benchmarks enable research toward robust, generalizable bimanual
 
 ```bibtex
 @article{vtouch2026,
-  author = {David S. Hippocampus and Elias D. Striatum},
-  title = {VTOUCH: A Multimodal Dataset with Vision-Based Tactile Enhancement for Bimanual Manipulation},
+  author = {Qianxi Hua and Xinyue Li and Zheng Yan and Yang Li and Chi Zhang and Yongyao Li and Yufei Liu},
+  title = {VTouch++: A Multimodal Dataset with Vision-Based Tactile Enhancement for Bimanual Manipulation},
   year = {2026},
-  eprint = {XXXX.XXXX},
+  eprint = {2604.20444},
   archivePrefix = {arXiv},
   primaryClass = {cs.RO},
-  url = {https://arxiv.org/abs/XXXX.XXXX}
+  url = {https://arxiv.org/abs/2604.20444}
 }
 ```
